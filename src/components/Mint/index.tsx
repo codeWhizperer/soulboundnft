@@ -14,11 +14,7 @@ import { useRouter } from "next/router";
 function MintCertificate() {
   const router = useRouter();
   const { address } = useAccount();
-  const {
-    config,
-    error: prepareError,
-    isError: isPrepareError,
-  } = usePrepareContractWrite({
+  const { config } = usePrepareContractWrite({
     address: "0x9CC30BBa8D4Bbf4274d4d31f1F50f45cB33fa8be",
     abi: [
       {
@@ -32,9 +28,16 @@ function MintCertificate() {
     functionName: "certMint",
   });
 
-  const { write, data, error, isError } = useContractWrite(config);
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  const { write, data } = useContractWrite(config);
+  const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
+    onSuccess(data) {
+      router.push(`https://testnets.opensea.io/account`);
+    },
+    onError(err) {
+      console.log(err)
+      toast.error(err?.message);
+    },
   });
   return (
     <>
@@ -56,14 +59,6 @@ function MintCertificate() {
             >
               {isLoading ? "Minting" : "Mint"}
             </button>
-            <>
-              {isSuccess
-                ? router.push(
-                    `https://testnets.opensea.io/assets/goerli/${address}`
-                  )
-                : ""}
-            </>
-            {isPrepareError || (isError && toast(error?.message))}
           </div>
         </div>
       </section>
