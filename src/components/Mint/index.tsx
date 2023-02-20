@@ -6,10 +6,14 @@ import {
   usePrepareContractWrite,
   useContractWrite,
   useWaitForTransaction,
+  useAccount,
 } from "wagmi";
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 function MintCertificate() {
+  const router = useRouter();
+  const { address } = useAccount();
   const {
     config,
     error: prepareError,
@@ -52,7 +56,13 @@ function MintCertificate() {
             >
               {isLoading ? "Minting" : "Mint"}
             </button>
-            {isSuccess && toast("successfully minted")}
+            <>
+              {isSuccess
+                ? router.push(
+                    `https://testnets.opensea.io/assets/goerli/${address}`
+                  )
+                : ""}
+            </>
             {isPrepareError || (isError && toast(error?.message))}
           </div>
         </div>
