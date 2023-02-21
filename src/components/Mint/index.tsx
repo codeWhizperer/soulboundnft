@@ -13,9 +13,9 @@ import { useRouter } from "next/router";
 
 function MintCertificate() {
   const router = useRouter();
-  const { address } = useAccount();
-  const { config } = usePrepareContractWrite({
-    address: "0x9CC30BBa8D4Bbf4274d4d31f1F50f45cB33fa8be",
+  const { data, write } = useContractWrite({
+    mode: "recklesslyUnprepared",
+    address: "0xD4357DFF8E8518f2d2e9035Ef15E643087E0944f",
     abi: [
       {
         inputs: [],
@@ -26,16 +26,18 @@ function MintCertificate() {
       },
     ],
     functionName: "certMint",
+    onError(err: any) {
+      toast.error(err.error.message);
+    },
   });
 
-  const { write, data } = useContractWrite(config);
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess(data) {
       router.push(`https://testnets.opensea.io/account`);
     },
     onError(err) {
-      console.log(err)
+      console.log(err.message);
       toast.error(err?.message);
     },
   });
@@ -53,15 +55,16 @@ function MintCertificate() {
           </div>
           <div className="flex justify-center">
             <button
-              disabled={!write || isLoading}
+              disabled={isLoading}
               onClick={() => write?.()}
-              className="text-gray-200 bg-[#3BD6B2] my-12 px-12 py-2 rounded-full font-bold "
+              className="text-gray-200 bg-[#3BD6B2]  my-12 px-12 py-2 rounded-full font-bold "
             >
               {isLoading ? "Minting" : "Mint"}
             </button>
           </div>
         </div>
       </section>
+      <></>
     </>
   );
 }

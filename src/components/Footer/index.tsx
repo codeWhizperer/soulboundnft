@@ -5,12 +5,12 @@ import Link from "next/link";
 function Footer() {
   return (
     <div className="md:flex md:justify-between lg:flex items-center my-6 lg:justify-between">
-      <div className="mb-4 md:mb-0 lg:mb-0 ">
+      {/* <div className="mb-4 md:mb-0 lg:mb-0 ">
         <Image src="/logo.png" width={127} height={61} alt="ayagigs__logo" />
-      </div>
+      </div> */}
 
       <div>
-        <nav>
+        {/* <nav>
           <p className="text-gray-200 font-bold">Contacts</p>
           <ul className="grid grid-cols-2 gap-x-12">
             <Link className="text-gray-200" href="#">
@@ -26,9 +26,9 @@ function Footer() {
               Twitter
             </Link>
           </ul>
-        </nav>
+        </nav> */}
       </div>
-      <div>
+      {/* <div>
         <p className="text-gray-200 my-4">Join Our NewsLetter</p>
         <div className="relative">
           <input
@@ -40,7 +40,7 @@ function Footer() {
             Submit
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

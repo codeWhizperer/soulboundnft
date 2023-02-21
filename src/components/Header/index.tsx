@@ -5,16 +5,16 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 function Header() {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-end items-center">
       {/*Logo*/}
-      <div>
+      {/* <div>
         <Image src="/logo.png" width={127} height={61} alt="ayagigs__logo" />
-      </div>
+      </div> */}
       <div className="flex space-x-12 items-center">
         <nav>
           <ul className="flex space-x-6">
-            <Link className="text-gray-200" href="#">About us</Link>
-            <Link className="text-gray-200" href="#">Program</Link>
+            <Link className="text-gray-200" href="#">Home</Link>
+            {/* <Link className="text-gray-200" href="#">Program</Link> */}
           </ul>
         </nav>
         <ConnectButton  />
