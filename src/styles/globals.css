@@ -9,6 +9,7 @@
 body {
   background-color: #1a308f;
   font-family: "Outfit", sans-serif;
+  height: 10vh;
 }
 @tailwind base;
 @tailwind components;

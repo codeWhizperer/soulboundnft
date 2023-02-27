@@ -50,9 +50,9 @@ function MintCertificate() {
           <p className="text-gray-200 font-bold my-4 text-center md:text-medium-x lg:text-medium-x font-black">
             Mint Certificate
           </p>
-          <div>
+          {/* <div>
             <Image src="/avatar.png" width={502} height={381} alt="mint__svg" />
-          </div>
+          </div> */}
           <div className="flex justify-center">
             <button
               disabled={isLoading}

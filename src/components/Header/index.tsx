@@ -13,7 +13,7 @@ function Header() {
       <div className="flex space-x-12 items-center">
         <nav>
           <ul className="flex space-x-6">
-            <Link className="text-gray-200" href="#">Home</Link>
+            <Link className="text-gray-200" href="/">Home</Link>
             {/* <Link className="text-gray-200" href="#">Program</Link> */}
           </ul>
         </nav>
