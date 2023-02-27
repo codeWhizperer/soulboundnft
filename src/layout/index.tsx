@@ -10,10 +10,10 @@ function Layout({ children }:any) {
       </header>
       <main className="">{children}</main>
 
-      {/* <footer className="p-4 md:4 lg:p-4 pt-4 border-t-4  border-t-gray-200">
+      <footer className="p-4 md:p-4 lg:p-4  border-t-4  border-t-gray-200">
         <Footer />
-        <p className="text-white mt-24 text-center">&#169;Copyright {new Date().getFullYear()}</p>
-      </footer> */}
+        <p className="text-white  text-center">&#169;Copyright {new Date().getFullYear()}</p>
+      </footer>
     </>
   );
 }

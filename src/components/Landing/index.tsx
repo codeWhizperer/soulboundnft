@@ -1,9 +1,47 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import {
+  useContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
+import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
+import "react-toastify/dist/ReactToastify.css";
 
 function Landing() {
+  const router = useRouter();
+  const { data, write } = useContractWrite({
+    mode: "recklesslyUnprepared",
+    address: "0xD4357DFF8E8518f2d2e9035Ef15E643087E0944f",
+    abi: [
+      {
+        inputs: [],
+        name: "certMint",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+    ],
+    functionName: "certMint",
+    onError(err: any) {
+      toast.error(err.error.message);
+    },
+  });
+
+  const { isLoading } = useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess(data) {
+      router.push(`https://testnets.opensea.io/account`);
+    },
+    onError(err) {
+      console.log(err.message);
+      toast.error(err?.message);
+    },
+  });
+
   return (
+    <>
+     <ToastContainer />
     <section className="container mx-auto">
       <div className="grid items-center md:grid-cols-2 md:gap-x-12 lg:grid-cols-2 lg:gap-x-12 mb-24">
         <div className="p-2 md:p-6 lg:p-0 text-center md:text-left lg:text-left">
@@ -12,14 +50,16 @@ function Landing() {
             <br /> Soul-bound certificate{" "}
           </h2>
           <p className="text-gray-200 md:text-xs lg:text-small lg:leading-small my-4">
-            This is only open to the approved addresses and<br/> can’t
-           be transferred out once minted.
+            This is only open to the approved addresses and
+            <br /> can’t be transferred out once minted.
           </p>
-          <Link  href={"/mint"}>
-            <button className="bg-[#3BD6B2] text-gray-200  px-24 py-4 rounded-full">
-              Mint Certificate
-            </button>
-          </Link>
+          <button
+            disabled={isLoading}
+            onClick={() => write?.()}
+            className="bg-[#3BD6B2] text-gray-200  px-24 py-4 rounded-full"
+          >
+            {isLoading ? "Minting" : "Mint Certificate"}
+          </button>
         </div>
 
         <div>
@@ -31,24 +71,8 @@ function Landing() {
           />
         </div>
       </div>
-
-      {/* <div className="md:grid md:grid-cols-2 md:gap-x-2 lg:grid lg:grid-cols-2 lg:gap-x-2 items-center mb-24">
-        <div>
-          <Image src="/card.png" width={539} height={573} alt="card__svg" />
-        </div>
-        <div className="text-center md:text-left lg:text-left">
-          <p className="md:text-2xl lg:text-medium text-gray-200  font-black lg:leading-medium">
-            Verify Talent’s
-            <br /> Skill sets easily
-          </p>
-
-            <Link href={"/mint"}>
-            <button className="bg-[#3BD6B2] text-gray-200 mt-11 px-24 py-4 rounded-full">Mint Certificate</button>
-            </Link>
-          
-        </div>
-      </div> */}
     </section>
+    </>
   );
 }
 
