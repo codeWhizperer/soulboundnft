@@ -32,7 +32,7 @@ function Landing() {
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess(data) {
-      router.push(`https://testnets.opensea.io/account`);
+      router.push(`https://opensea.io/account`);
     },
     onError(err) {
       // console.log(err.message);
